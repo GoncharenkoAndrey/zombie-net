@@ -3,7 +3,8 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action = "/login" method = "POST">
-					<span class="login100-form-title">
+					@csrf
+					<span class="login100-form-title pt-54">
 						Вход
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
