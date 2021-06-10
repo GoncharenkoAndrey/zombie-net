@@ -7,7 +7,13 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
-class Controller extends BaseController
+class LoginController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    function index() {
+        return view("login");
+    }
+    function login() {
+        return redirect("/", 302, []);
+    }
 }
