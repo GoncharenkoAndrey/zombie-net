@@ -15,9 +15,10 @@ use App\Http\Controllers\RegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [IndexController::class, "index"]);
-Route::get("/login", [LoginController::class, "index"]);
-Route::get("/register", [RegisterController::class, "index"]);
-Route::post("/login", [LoginController::class, "login"]);
-Route::post("/register", [RegisterController::class, "register"]);
+Route::group(['middleware' => 'web'], function () {
+    Route::get('/', [IndexController::class, "index"]);
+    Route::get("/login", [LoginController::class, "index"]);
+    Route::get("/register", [RegisterController::class, "index"]);
+    Route::post("/login", [LoginController::class, "login"]);
+    Route::post("/register", 'App\Http\Controllers\RegisterController@register');
+});
