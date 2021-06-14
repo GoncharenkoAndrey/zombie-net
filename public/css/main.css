@@ -419,7 +419,20 @@ iframe {
   visibility: visible;
   opacity: 1;
 }
-
+.navigation-item {
+    border-top: 1px solid #666666;
+    border-left: 1px solid #666666;
+    border-right: 1px solid #666666;
+}
+.navigation-item-bottom {
+    border-bottom: 1px solid #666666;
+}
+.user {
+    border: solid 1px #666666;
+    border-radius: 5px;
+    height: 100px;
+    margin-bottom: 15px;
+}
 @media (max-width: 992px) {
   .alert-validate::before {
     visibility: visible;

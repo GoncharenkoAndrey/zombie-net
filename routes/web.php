@@ -16,10 +16,12 @@ use App\Http\Controllers\RegisterController;
 |
 */
 Route::group(['middleware' => 'web'], function () {
-    Route::get('/', [IndexController::class, "index"]);
-    Route::get("/login", [LoginController::class, "index"]);
-    Route::get("/register", [RegisterController::class, "index"]);
-    Route::post("/login", [LoginController::class, "login"]);
+    Route::get('/', "App\Http\Controllers\IndexController@index");
+    Route::get("/login", "App\Http\Controllers\LoginController@index");
+    Route::get("/register", "App\Http\Controllers\RegisterController@index");
+    Route::post("/login", "App\Http\Controllers\LoginController@login");
     Route::post("/register", 'App\Http\Controllers\RegisterController@register');
-    Route::get("/userpage", "App\Http\Controllers\IndexController@userPage");
+    Route::get("/userpage", "App\Http\Controllers\IndexController@userPage")->middleware("auth");
+    Route::get("/userslist", "App\Http\Controllers\IndexController@usersList")->middleware("auth");
+    Route::get("/users/{id}",  "App\Http\Controllers\IndexController@user")->middleware("auth");
 });

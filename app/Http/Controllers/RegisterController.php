@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends BaseController
 {
@@ -49,7 +50,7 @@ class RegisterController extends BaseController
             ]);
         $user = new User;
         $user->login = $request->get("login");
-        $user->password = $request->get("password");
+        $user->password = Hash::make($request->get("password"));
         $user->name = $request->get("name");
         $user->family = $request->get("family");
         $user->email = $request->get("email");
