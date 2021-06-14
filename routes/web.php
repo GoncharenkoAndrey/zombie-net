@@ -21,4 +21,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::get("/register", [RegisterController::class, "index"]);
     Route::post("/login", [LoginController::class, "login"]);
     Route::post("/register", 'App\Http\Controllers\RegisterController@register');
+    Route::get("/userpage", "App\Http\Controllers\IndexController@userPage");
 });

@@ -13,4 +13,7 @@ class IndexController extends BaseController
     function index() {
         return redirect("/login", 302, array());
     }
+    public function userPage() {
+        return view("user");
+    }
 }

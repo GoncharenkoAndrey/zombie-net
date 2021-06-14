@@ -140,7 +140,9 @@ iframe {
 
 .wrap-login100 {
   width: 900px;
-  background-image: url(/images/z.png);
+  background-image: url("/images/z.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 10px;
   overflow: hidden;
   display: -webkit-box;

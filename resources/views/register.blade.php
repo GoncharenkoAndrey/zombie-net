@@ -14,13 +14,13 @@
                         @enderror
 					</div>
                     <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" name="password" placeholder="Пароль">
+                        <input class="input100" type="password" name="password" placeholder="Пароль">
                         @error("password")
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" name="passwordConfirm" placeholder="Повтор пароля">
+                        <input class="input100" type="password" name="passwordConfirm" placeholder="Повтор пароля">
                         @error("passwordConfirm")
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -51,7 +51,7 @@
                         @enderror
 					</div>
                     <div class="wrap-input100 validate-input">
-                        <input class="input100" type="date" name="date" placeholder="Дата рождения">
+                        <input class="input100" type="date" name="birth" placeholder="Дата рождения">
                         @error('date')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
