@@ -26,7 +26,7 @@ class LoginController extends BaseController
             return redirect("/userpage", 302, []);
         }
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'The provided  credentials do not match our records.',
         ]);
     }
 }
