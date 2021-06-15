@@ -10,6 +10,10 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class LoginController
+ * @package App\Http\Controllers
+ */
 class LoginController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -30,12 +34,16 @@ class LoginController extends BaseController
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            User::setLoginDate();
+            User::setLoginDate(Auth::user());
             return redirect("/userpage", 302, []);
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
+    }
+    public function logout(Request $request) {
+        $request->session()->invalidate();
+        return redirect("/");
     }
 }

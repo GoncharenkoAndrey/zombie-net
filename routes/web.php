@@ -19,6 +19,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', "App\Http\Controllers\IndexController@index");
     Route::get("/login", "App\Http\Controllers\LoginController@index");
     Route::get("/register", "App\Http\Controllers\RegisterController@index");
+    Route::get("/logout", [LoginController::class, "logout"]);
     Route::post("/login", "App\Http\Controllers\LoginController@login");
     Route::post("/register", 'App\Http\Controllers\RegisterController@register');
     Route::get("/userpage", "App\Http\Controllers\IndexController@userPage")->middleware("auth");
