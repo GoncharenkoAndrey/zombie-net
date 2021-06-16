@@ -1,9 +1,13 @@
-@include("header")
-<div class="page">
-    <div class="column1">
+@extends("layouts.master")
+@section("title")
+    Profile
+@endsection
+@section("content")
+<div class="row">
+    <div class="col-md-2">
         @include("menu")
     </div>
-    <div class="column2">
+    <div class="col-md-10">
         <div>{{$user->name}}&nbsp;{{$user->family}}</div>
         <div>Дата рождения: {{$user->birth}}</div>
         <div>
@@ -15,4 +19,5 @@
         <input type = "checkbox" {{$user->eat ? checked : "" }} />
     </div>
 </div>
-@include("footer")
+@endsection
+@include("includes.footer")

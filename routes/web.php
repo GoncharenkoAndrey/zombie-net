@@ -16,13 +16,15 @@ use App\Http\Controllers\RegisterController;
 |
 */
 Route::group(['middleware' => 'web'], function () {
-    Route::get('/', "App\Http\Controllers\IndexController@index");
+    Route::get('/', "App\Http\Controllers\IndexController@index")->name("index");
     Route::get("/login", "App\Http\Controllers\LoginController@index");
     Route::get("/register", "App\Http\Controllers\RegisterController@index");
     Route::get("/logout", [LoginController::class, "logout"]);
     Route::post("/login", "App\Http\Controllers\LoginController@login");
     Route::post("/register", 'App\Http\Controllers\RegisterController@register');
-    Route::get("/userpage", "App\Http\Controllers\IndexController@userPage")->middleware("auth");
-    Route::get("/userslist", "App\Http\Controllers\IndexController@usersList")->middleware("auth");
-    Route::get("/users/{id}",  "App\Http\Controllers\IndexController@user")->middleware("auth");
+    Route::get("/dashboard", "App\Http\Controllers\IndexController@dashboard")->middleware("auth");
+    Route::get("/users", "App\Http\Controllers\IndexController@users")->middleware("auth");
+    Route::get("/user/{id}",  "App\Http\Controllers\IndexController@user")->middleware("auth");
+    Route::get("/objects", [IndexController::class, "objects"])->middleware("auth");
+    Route::post("/addLocation", [IndexController::class, "addLocation"])->middleware("auth");
 });

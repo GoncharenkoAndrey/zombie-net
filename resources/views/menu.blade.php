@@ -1,17 +1,8 @@
-<div class="menu">
-            <ul class="navigation">
-                <li class="navigation-item">
-                    <a href="/userpage">Профиль</a>
-                </li>
-                <li class="navigation-item">
-                    <a href="/userslist">Пользователи</a>
-                </li>
-                <li class="navigation-item">
-                    <a href="/messages">Сообщения</a>
-                </li>
-                <li class="navigation-item navigation-item-bottom">
-                    <a href="/logout">Выход</a>
-                </li>
-            </ul>
-</div>
+<nav class="nav flex-column">
+    <a class="nav-link" href="/dashboard">Профиль</a>
+    <a class="nav-link" href="/users">Пользователи</a>
+    <a class="nav-link" href="/messages">Сообщения</a>
+    <a class="nav-link" href="/objects">Объекты</a>
+    <a class="nav-link" href="/logout">Выход</a>
+</nav>
 

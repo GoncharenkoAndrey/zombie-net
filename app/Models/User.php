@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Filters\User\UserSearch;
-use Illuminate\Support\Carbon;
 
 class User extends Authenticatable
 {
@@ -43,7 +40,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public static function setLoginDate($user) {
-        $user->attributes["loginDate"] = Carbon::now()->getTimestamp();
-    }
 }

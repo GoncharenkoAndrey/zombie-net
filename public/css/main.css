@@ -57,3 +57,7 @@
 .users-list ul {
     list-style: none;
 }
+.map {
+    width: 1000px;
+    height: 900px;
+}

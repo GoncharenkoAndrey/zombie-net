@@ -1,10 +1,10 @@
-@include("header")
-    <div class="page">
-        <div class="column1">
+@extends("layouts.master")
+    <div class="row">
+        <div class="col-md-2">
         @include("menu")
         </div>
-        <div class="column2">
-        <form class="search-form" action="/userslist">
+        <div class="col-md-10">
+        <form class="search-form" action="/users">
             <div class="form-group">
                 <label for="name">Search by name</label>
                 <input type="text" name="name" class="form-control" id="name"  placeholder="Enter name">
@@ -17,18 +17,17 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="users-list">
+            @if(count($users) == 0)
+                Пользователи по запросу не найдены
+            @endif
             @foreach($users as $user)
-                <ul>
-                    <li class="user">
-                        <a href = "/users/{{$user->id}}">
-                            {{$user->name}}
-                            {{$user->family}}
-                        </a>
-                    </li>
-                </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="/user/{{$user->id}}">{{$user->name}}&nbsp;{{$user->family}}</li>
+                    </ul>
             @endforeach
         </div>
         </div>
             <div class="float-clear"> </div>
     </div>
-@include("footer")
+@include("includes.footer")
