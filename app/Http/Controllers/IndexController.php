@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dialog;
+use App\Models\Location;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -17,44 +20,22 @@ class IndexController extends BaseController
         return view("index");
     }
 
-    public function dashboard()
-    {
-        if (Auth::id()) {
-            $user = Auth::user();
 
-            return view("dashboard", compact("user"));
-        }
-        else {
-            redirect(route("index"));
-        }
-    }
 
-    public function user($id) {
-        $user = DB::table("users")->where("id", $id)->first();
-
-        return view("profile", compact("user"));
-    }
-
-    public function users(Request $request) {
-        $name = $request->get("name");
-        $email = $request->get("email");
-        $users = DB::table("users");
-        if($name) {
-            $users->where("name", $name);
-        }
-        if($email) {
-            $users->where("email", $email);
-        }
-        $users = $users->get();
-
-        return view("users", compact("users"));
-    }
     public function objects() {
         return view("objects");
     }
+
     public function addLocation(Request $request) {
         $latitude = $request->get("latitude");
         $longitude = $request->get("longitude");
+        $locationModel = new Location();
+        $locationModel->latitude = $latitude;
+        $locationModel->longitude = $longitude;
+        $locationModel->save();
+    }
+
+    public function getLocations() {
 
     }
 }

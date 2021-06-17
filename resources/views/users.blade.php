@@ -1,4 +1,5 @@
 @extends("layouts.master")
+@section("content")
     <div class="row">
         <div class="col-md-2">
         @include("menu")
@@ -30,4 +31,5 @@
         </div>
             <div class="float-clear"> </div>
     </div>
+@endsection
 @include("includes.footer")

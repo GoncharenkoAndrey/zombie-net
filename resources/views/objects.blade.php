@@ -7,11 +7,17 @@
         <div class="col-md-10">
             @csrf
             <input type="hidden" id="session" value="{{\Illuminate\Support\Facades\Session::token()}}" />
-            <div id="map" class="map"></div>
-            <ul class="list-group">
-            </ul>
+            <div class="row">
+            <div class="col-md-9">
+                <div id="map" class="map"></div>
+            </div>
+            <div class="col-md-3">
+                <ul id="objects" class="list-group">
+                </ul>
+            </div>
+            </div>
         </div>
     </div>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=0c9697e2-dadf-4f29-a505-ffb753f17733&lang=ru_RU" type="text/javascript"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvxgcxq6qGtu16c5eqq2IJyf5P7AFvA3c&callback=initMap&libraries=places"></script>
     <script src="/js/map.js" type="text/javascript"></script>
 @endsection

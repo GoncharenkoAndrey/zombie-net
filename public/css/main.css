@@ -47,6 +47,7 @@
 }
 .search-form {
     width: 100%;
+    margin-bottom: 10px;
 }
 .user {
     border: solid 1px #666666;
@@ -54,10 +55,27 @@
     height: 100px;
     margin-bottom: 15px;
 }
+.text {
+    color: #007bff;
+}
+.textBlack {
+    color: black;
+}
 .users-list ul {
     list-style: none;
 }
+.messages {
+    border: #6c757d solid 1px;
+    height: 80%;
+    margin-bottom: 5px;
+}
+.messages span {
+    margin-left: 10px;
+}
+.messageForm {
+    height: 20%;
+}
 .map {
-    width: 1000px;
-    height: 900px;
+    width: 690px;
+    height: 700px;
 }

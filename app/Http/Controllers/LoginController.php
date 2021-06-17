@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     function index() {
         return view("login");
     }
+
     function login(Request $request)
     {
         $credentials = $request->validate([
@@ -28,5 +30,10 @@ class LoginController extends BaseController
         return back()->withErrors([
             'email' => 'The provided  credentials do not match our records.',
         ]);
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect(route("index"));
     }
 }

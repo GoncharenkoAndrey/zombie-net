@@ -49,7 +49,7 @@ class RegisterController extends BaseController
             ]);
         $user = new User;
         $user->login = $request->get("login");
-        $user->password = $request->get("password");
+        $user->password = bcrypt($request->get("password"));
         $user->name = $request->get("name");
         $user->family = $request->get("family");
         $user->email = $request->get("email");
