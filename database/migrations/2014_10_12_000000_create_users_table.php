@@ -25,9 +25,11 @@ class CreateUsersTable extends Migration
             $table->bigInteger('phone');
             $table->text("information")->nullable();
             $table->boolean("eat")->default(false);
-            $table->timestamp("loginDate");
+            $table->timestamp("loginDate")->default(NOW());
+            $table->string("locationId")->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign("id")->references("toId")->on("dialogs");
         });
     }
 

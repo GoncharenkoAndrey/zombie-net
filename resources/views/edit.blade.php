@@ -4,9 +4,9 @@
 @endsection
 @section("content")
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-9">
             <h3>Изменеие профиля</h3>
-            <form action="{{route("profileSave")}}" method="POST">
+            <form action="{{route("profileSave")}}" enctype="multipart/form-data" method="POST">
                 <div class="form-group">
                     @csrf
                     <input type="hidden" name="_token" value="{{\Illuminate\Support\Facades\Session::token()}}" />
@@ -54,14 +54,22 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="photo">Фото</label>
+                        <input class="form-control" type="file" id="photo" name="photo" value="{{$user->photo}}" placeholder="Фото" />
+                    </div>
+                    <div class="form-group">
                         <label for="information">Дополнительная информация</label>
                         <textarea class="form-control" id="information" name="information" placeholder="Дополнительная информация">{{$user->information}}</textarea>
                     </div>
+                    <input type="hidden" id="location" name="locationId" value="{{$user->locationId}}" />
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                     <a class="btn btn-primary" href="{{route("dashboard")}}">Отмена</a>
                     <a class="btn btn-primary" href="{{route("changePassword")}}">Изменить пароль</a>
                 </div>
             </form>
         </div>
+        <div id="userMap" class="userMap col-md-3"></div>
     </div>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvxgcxq6qGtu16c5eqq2IJyf5P7AFvA3c&callback=initMap&libraries=places"></script>
+    <script src="/js/editMap.js"></script>
 @endsection

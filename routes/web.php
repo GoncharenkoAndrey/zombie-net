@@ -24,6 +24,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get("/user/{id}",  "App\Http\Controllers\ProfileController@user")->name("user")->middleware("auth");
     Route::get("/objects", "App\Http\Controllers\IndexController@objects")->name("objects")->middleware("auth");
     Route::post("/addLocation", "App\Http\Controllers\IndexController@addLocation")->middleware("auth");
+    Route::post("/removeLocation", "App\Http\Controllers\IndexController@removeLocation")->middleware("auth");
+    Route::get("/getLocations", "App\Http\Controllers\IndexController@getLocations")->middleware("auth");
     Route::get("/messages", "App\Http\Controllers\MessageController@messages")->name("messages")->middleware("auth");
     Route::get("/message/{id}", "App\Http\Controllers\MessageController@messages")->name("dialog")->middleware("auth");
     Route::post("/message/{id}", "App\Http\Controllers\MessageController@sendMessage")->middleware("auth")->name("messageSend");

@@ -12,14 +12,14 @@
                 @foreach($messages as $message)
                     @if($message->fromId !== Auth::id())
                         <p class="text-right">
-                            {{$message->user->name}} {{$message->user->family}}
+                            <a href="{{route("user", $message->user->id)}}">{{$message->user->name}} {{$message->user->family}}</a>
                         </p>
                         <p  class="text-right">
                             {{$message->content}}
                         </p>
                     @else
                         <p>
-                            {{Auth::user()->name}} {{Auth::user()->family}}
+                            <a href="{{route("user", Auth::id())}}">{{Auth::user()->name}} {{Auth::user()->family}}</a>
                         </p>
                         <p>
                             {{$message->content}}

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateUsersTableKey extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class UpdateUsersTableKey extends Migration
      */
     public function up()
     {
-        Schema::table('dialogs', function (Blueprint $table) {
-            $table->foreign("id")->references("toId")->on("dialogs");
+        Schema::create('cities', function (Blueprint $table) {
+            $table->id();
+            $table->string("name");
+            $table->timestamps();
         });
     }
 
@@ -25,6 +27,6 @@ class UpdateUsersTableKey extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('cities');
     }
 }

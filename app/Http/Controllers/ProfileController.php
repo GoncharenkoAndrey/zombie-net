@@ -86,6 +86,15 @@ class ProfileController extends Controller
         $user->phone = $request->get("phone");
         $user->birth = $request->get("birth");
         $user->information = $request->get("information");
+        $user->locationId = $request->get("locationId");
+        if($request->hasFile("photo")) {
+            $fileNameWithExt = $request->file("photo")->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file("photo")->getClientOriginalExtension();
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            $request->file("photo")->storeAs("/public/photos", $fileNameToStore);
+            $user->photo = $fileNameToStore;
+        }
         $user->update();
         return redirect()->route("dashboard");
     }
