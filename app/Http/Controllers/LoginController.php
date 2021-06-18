@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     function index() {
         return view("login");
     }
+
     function login(Request $request)
     {
         $credentials = $request->validate([
@@ -22,11 +24,16 @@ class LoginController extends BaseController
             "password" => "required"
         ]);
         if (Auth::attempt($credentials)) {
-            $request->session()->generate();
-            return redirect("/userpage", 302, []);
+            $request->session()->regenerate();
+            return redirect("/dashboard", 302, []);
         }
         return back()->withErrors([
             'email' => 'The provided  credentials do not match our records.',
         ]);
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect(route("index"));
     }
 }
