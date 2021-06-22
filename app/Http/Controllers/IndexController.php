@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends BaseController
 {
@@ -19,8 +20,22 @@ class IndexController extends BaseController
         return view("index");
     }
 
-    public function objects() {
-        return view("objects");
+    public function objects(Request $request) {
+        $cities = City::all();
+        $name = $request->get("name");
+        $city = $request->get("city");
+        if($city) {
+            $cityId = City::where("name", $city)->first()->id;
+        }
+        $objects = DB::table("locations");
+        if($name) {
+            $cities->where("name", $name);
+        }
+        if($city && $cityId) {
+            $objects->where("cityId", $cityId);
+        }
+        $objects = $objects->get();
+        return view("objects", compact("objects","cities"));
     }
 
     public function addLocation(Request $request) {

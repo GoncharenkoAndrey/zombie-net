@@ -1,8 +1,34 @@
 let map;
 const markers = [];
+window.onload = init;
+function init() {
+    const list = document.getElementById("objects");
+    const modalElement = document.getElementById("editModal");
+    const modal = new bootstrap.Modal(modalElement);
+    const text = document.getElementById("objectName");
+    const closeModal = document.getElementById("modalClose");
+    const save = document.getElementById("save");
+    closeModal.addEventListener("click", function () {
+        modal.hide();
+    });
+    save.addEventListener("click", function (event) {
+        const objectItem = document.getElementById(save.dataset.objectId);
+        const button = objectItem.children[0];
+        objectItem.textContent = text.value;
+        objectItem.appendChild(button);
+        modal.hide();
+    });
+    for(let i = 0; i < list.children.length; i++) {
+        list.children[i].addEventListener("click", function (event) {
+            text.value = list.children[i].textContent;
+            save.dataset.objectId = list.children[i].id;
+            modal.show();
+        });
+    }
+}
 function removePlace(event) {
     const item = event.target.parentElement;
-    const placeId = item.children.item(0).value;
+    const placeId = item.id;
     const token = document.getElementsByName('_token');
     const list = document.getElementById("objects");
     const request = new XMLHttpRequest();
@@ -26,15 +52,12 @@ function removePlace(event) {
 function addObjectToMap(object) {
     const list = document.getElementById("objects");
     const item = document.createElement("li");
-    const id = document.createElement("input");
     const button = document.createElement("i");
     item.className = "list-group-item";
     item.textContent = object.place.name;
-    id.type = "hidden";
-    id.value = object.placeId;
+    item.id = object.placeId;
     button.className = "bi bi-x-lg";
     button.onclick = removePlace;
-    item.append(id);
     item.append(button);
     list.append(item);
 }
@@ -93,21 +116,6 @@ function initMap() {
         center: {lat: 47.8229, lng: 35.1903},
         zoom: 13,
     });
-    const token = document.getElementsByName('_token');
-    const request = new XMLHttpRequest();
-    request.onreadystatechange = () => {
-        if (request.readyState == 4 && request.status == 200 && request.responseText) {
-            const locations = JSON.parse(request.response);
-            const list = document.getElementById("objects");
-            locations.forEach((location) => {
-                getPlace(location.placeId, addObjectToMap);
-            });
-        }
-    }
-    request.open("GET", "/getLocations");
-    request.setRequestHeader("Content-Type", "application/json");
-    request.setRequestHeader("X-CSRF-TOKEN", token[0].value);
-    request.send();
     map.addListener("click", function (event) {
         const geocoder = new google.maps.Geocoder();
         if(event.placeId) {

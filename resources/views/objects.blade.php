@@ -8,13 +8,56 @@
             @csrf
             <input type="hidden" id="session" value="{{\Illuminate\Support\Facades\Session::token()}}" />
             <div class="row">
-            <div class="col-md-9">
-                <div id="map" class="map"></div>
+                <div class="col-md-6">
+                    <div id="map" class="map"></div>
+                </div>
+                <div class="col-md-3">
+                    @if(count($objects) == 0)
+                        Объекты не найдены
+                    @endif
+                    <ul id="objects" class="list-group">
+                        @foreach($objects as $object)
+                        <li class="list-group-item">
+                            {{$object->name}}
+                            <i class="bi bi-x-lg"></i>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <form class="search-form" action="/objects">
+                        <div class="form-group">
+                            <label for="name">Search by name</label>
+                            <input type="text" name="name" class="form-control" id="name"  placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Город</label>
+                            <select class="form-control" id="city" name="city">
+                                @foreach($cities as $city)
+                                    <option>
+                                        {{$city->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Найти</button>
+                    </form>
             </div>
-            <div class="col-md-3">
-                <ul id="objects" class="list-group">
-                </ul>
-            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                </div>
+                <div class="modal-body">
+                    <input id="objectName" type="text"/>
+                </div>
+                <div class="modal-footer">
+                    <button id="modalClose" type="button" class="btn btn-secondary">Close</button>
+                    <button id="save" type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>

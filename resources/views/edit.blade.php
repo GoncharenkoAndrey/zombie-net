@@ -62,6 +62,7 @@
                         <textarea class="form-control" id="information" name="information" placeholder="Дополнительная информация">{{$user->information}}</textarea>
                     </div>
                     <input type="hidden" id="location" name="locationId" value="{{$user->locationId}}" />
+                    <input type="hidden" id="city" name="city" value="{{$user->city}}" />
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                     <a class="btn btn-primary" href="{{route("dashboard")}}">Отмена</a>
                     <a class="btn btn-primary" href="{{route("changePassword")}}">Изменить пароль</a>

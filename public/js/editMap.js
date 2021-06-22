@@ -2,7 +2,9 @@ let map;
 let marker;
 function setLocation(object) {
     const location = document.getElementById("location");
+    const city = document.getElementById("city");
     location.value = object.placeId;
+    city.value = object.place.address_components[3].long_name;
 }
 function getPlace(placeId, callback) {
     const request = {

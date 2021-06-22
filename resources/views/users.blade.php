@@ -10,12 +10,21 @@
                 <label for="name">Search by name</label>
                 <input type="text" name="name" class="form-control" id="name"  placeholder="Enter name">
             </div>
-
             <div class="form-group">
                 <label for="email">Search by email</label>
                 <input type="text" name="email" class="form-control" id="email"  placeholder="Enter email">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label for="city">Город</label>
+                <select class="form-control" id="city" name="city">
+                    @foreach($cities as $city)
+                        <option>
+                            {{$city->name}}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Найти</button>
         </form>
         <div class="users-list">
             @if(count($users) == 0)
