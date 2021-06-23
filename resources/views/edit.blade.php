@@ -53,9 +53,10 @@
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group photoField">
                         <label for="photo">Фото</label>
                         <input class="form-control" type="file" id="photo" name="photo" value="{{$user->photo}}" placeholder="Фото" />
+                        <img class="editPhoto" src="/photos/{{$user->photo}}" alt="photo">
                     </div>
                     <div class="form-group">
                         <label for="information">Дополнительная информация</label>

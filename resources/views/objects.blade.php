@@ -17,7 +17,7 @@
                     @endif
                     <ul id="objects" class="list-group">
                         @foreach($objects as $object)
-                        <li class="list-group-item">
+                        <li class="list-group-item object-list-item" id="{{$object->placeId}}">
                             {{$object->name}}
                             <i class="bi bi-x-lg"></i>
                         </li>
@@ -27,12 +27,15 @@
                 <div class="col-md-3">
                     <form class="search-form" action="/objects">
                         <div class="form-group">
-                            <label for="name">Search by name</label>
-                            <input type="text" name="name" class="form-control" id="name"  placeholder="Enter name">
+                            <label for="name">Поиск по названию</label>
+                            <input type="text" name="name" class="form-control" id="name"  placeholder="Введите название">
                         </div>
                         <div class="form-group">
                             <label for="city">Город</label>
                             <select class="form-control" id="city" name="city">
+                                <option>
+                                    Все
+                                </option>
                                 @foreach($cities as $city)
                                     <option>
                                         {{$city->name}}

@@ -7,16 +7,19 @@
         <div class="col-md-10">
         <form class="search-form" action="/users">
             <div class="form-group">
-                <label for="name">Search by name</label>
-                <input type="text" name="name" class="form-control" id="name"  placeholder="Enter name">
+                <label for="name">Поиск по имени</label>
+                <input type="text" name="name" class="form-control" id="name"  placeholder="Введите имя">
             </div>
             <div class="form-group">
-                <label for="email">Search by email</label>
-                <input type="text" name="email" class="form-control" id="email"  placeholder="Enter email">
+                <label for="email">email</label>
+                <input type="text" name="email" class="form-control" id="email"  placeholder="Введите email">
             </div>
             <div class="form-group">
                 <label for="city">Город</label>
                 <select class="form-control" id="city" name="city">
+                    <option>
+                        Все
+                    </option>
                     @foreach($cities as $city)
                         <option>
                             {{$city->name}}

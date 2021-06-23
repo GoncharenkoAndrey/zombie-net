@@ -11,19 +11,25 @@
             <div class="messages">
                 @foreach($messages as $message)
                     @if($message->fromId !== Auth::id())
-                        <p class="text-right">
-                            <a href="{{route("user", $message->user->id)}}">{{$message->user->name}} {{$message->user->family}}</a>
-                        </p>
-                        <p  class="text-right">
-                            {{$message->content}}
-                        </p>
+                        <div class="message messageOut">
+                            <p class="messageUser">
+                                <img class="dialogsPhoto" alt="photo" src="/photos/{{$message->user->photo}}">
+                                <a href="{{route("user", $message->user->id)}}">{{$message->user->name}} {{$message->user->family}}</a>
+                            </p>
+                            <p  class="text-right">
+                                {{$message->content}}
+                            </p>
+                        </div>
                     @else
-                        <p>
-                            <a href="{{route("user", Auth::id())}}">{{Auth::user()->name}} {{Auth::user()->family}}</a>
-                        </p>
-                        <p>
-                            {{$message->content}}
-                        </p>
+                        <div class="message messageIn">
+                            <p class="messageUser">
+                                <img class="dialogsPhoto" alt="photo" src="/photos/{{Auth::user()->photo}}">
+                                <a href="{{route("user", Auth::id())}}">{{Auth::user()->name}} {{Auth::user()->family}}</a>
+                            </p>
+                            <p>
+                                {{$message->content}}
+                            </p>
+                        </div>
                     @endif
                 @endforeach
             </div>

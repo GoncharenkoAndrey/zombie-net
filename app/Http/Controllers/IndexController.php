@@ -24,12 +24,13 @@ class IndexController extends BaseController
         $cities = City::all();
         $name = $request->get("name");
         $city = $request->get("city");
-        if($city) {
+        $cityId = 0;
+        if($city && $city !== "Все") {
             $cityId = City::where("name", $city)->first()->id;
         }
         $objects = DB::table("locations");
         if($name) {
-            $cities->where("name", $name);
+            $objects->where("name", "LIKE", "%{$name}%");
         }
         if($city && $cityId) {
             $objects->where("cityId", $cityId);
@@ -57,9 +58,19 @@ class IndexController extends BaseController
         $locationModel->address = $objectData->place->formatted_address;
         $locationModel->cityId = $cityId;
         $locationModel->save();
+
+        return response()->json(json_decode("{\"result\":\"success\"}"));
+    }
+    public function updateLocation(Request $request) {
+        $objectData = json_decode($request->getContent());
+        $location = Location::where("placeId", $objectData->placeId)->first();
+        $location->name = $objectData->name;
+        $location->update();
+
+        return response()->json(json_decode("{\"result\":\"success\"}"));
     }
 
-    function removeLocation(Request $request) {
+function removeLocation(Request $request) {
         $placeId = json_decode($request->getContent())->placeId;
         $locationModel = new Location();
         $locationModel->where("placeId", $placeId)->delete();

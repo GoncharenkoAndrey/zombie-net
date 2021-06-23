@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -36,10 +35,13 @@ class ProfileController extends Controller
         $name = $request->get("name");
         $email = $request->get("email");
         $city = $request->get("city");
-        $cityId = City::where("name", $city)->first()->id;
+        $cityId = 0;
+        if($city && $city !== "Все") {
+            $cityId = City::where("name", $city)->first()->id;
+        }
         $users = DB::table("users");
         if($name) {
-            $users->where("name", $name);
+            $users->where("name", "LIKE", "%{$name}%");
         }
         if($email) {
             $users->where("email", $email);
@@ -54,19 +56,12 @@ class ProfileController extends Controller
 
     public function edit() {
         $user = Auth::user();
+
         return view("edit",compact("user"));
     }
 
     public function password() {
         return view("password");
-    }
-    function resize($image_id,$width,$height)
-    {
-        $new_width =$width * 0.5;
-        $new_height =$height * 0.5;
-        $layer=imagecreatetruecolor($new_width,$new_height);
-        imagecopyresampled($layer,$image_id,0,0,0,0,$new_width,$new_height, $width,$height);
-        return $layer;
     }
     public function saveProfile(Request $request) {
         $validatedData = $request->validate([
@@ -93,7 +88,9 @@ class ProfileController extends Controller
             ]);
         $city = $request->get("city");
         $cityModel = new City();
-        $cityObject = $cityModel->where("name", $city)->first();
+        if($city) {
+            $cityObject = $cityModel->where("name", $city)->first();
+        }
         if($cityObject) {
             $cityId = $cityObject->id;
         }
@@ -111,18 +108,22 @@ class ProfileController extends Controller
         $user->information = $request->get("information");
         $user->locationId = $request->get("locationId");
         $user->cityId = $cityId;
+        $destinationPath = "photos";
         if($request->hasFile("photo")) {
             $image = $request->file("photo");
-            $destinationPath = "photos";
             $extension = $request->file("photo")->getClientOriginalExtension();
             $fileNameToStore = time() . '.' . $extension;
             $img = Image::make($image->getRealPath());
-            $img->resize(300, 300, function ($constraint) {
+            $img->resize(150, 150, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($destinationPath . '/' . $fileNameToStore);
             $user->photo = $fileNameToStore;
         }
+        else {
+            $user->photo = $destinationPath . "/default.jpg";
+        }
         $user->update();
+
         return redirect()->route("dashboard");
     }
 
@@ -134,6 +135,7 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
         $user->password = bcrypt($request->get("password"));
         $user->update();
+
         return redirect()->route("dashboard");
     }
 
@@ -142,6 +144,7 @@ class ProfileController extends Controller
         $user = User::find($data->userId);
         $user->eat = $data->value;
         $user->update();
+
         return $user->eat;
     }
 }
